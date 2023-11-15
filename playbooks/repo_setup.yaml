@@ -1,0 +1,33 @@
+- name: GIT Checkout
+  hosts: example
+  tasks:
+  - name: Install git
+    become: true
+    apt:
+      name: git
+      state: present
+  - name: Scan for SSH host keys.
+    become: true
+    local_action:
+      module: shell
+      cmd: ssh-keyscan -H github.com >> /home/sshuser/.ssh/known_hosts
+    changed_when: False
+    register: ssh_scan
+
+  - name: Checkout automation service
+    ansible.builtin.git:
+      repo: 'https://{{ github_pat_token }}@github.com/{{ github_username }}/automation_qa.git'
+      dest: /home/sshuser/project/automation_qa
+      accept_newhostkey: true
+  - name: Add PAT token into automation service secrets.
+    local_action:
+      module: shell
+      cmd: echo GITHUB_PAT_TOKEN={{ github_pat_token }} >> /home/sshuser/project/automation_qa/src/.env.secrets
+    changed_when: False
+    register: ssh_scan
+  - name: Checkout target service
+    ansible.builtin.git:
+      repo: 'https://{{ github_pat_token }}@github.com/{{ github_username }}/automation_qa_target.git'
+      dest: /home/sshuser/project/automation_qa_target
+      accept_newhostkey: true
+

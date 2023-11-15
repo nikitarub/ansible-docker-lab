@@ -1,0 +1,25 @@
+- name: Dependancies installation
+  hosts: example
+  tasks:
+  - name: Install pip3
+    become: true
+    apt:
+      name: python3-pip
+      state: present
+
+  - name: Install automation deps
+    local_action:
+      module: shell
+      cmd: cd project/automation_qa && pip install -r requirements.txt
+  - name: Install target deps
+    local_action:
+      module: shell
+      cmd: cd project/automation_qa && pip install -r requirements.txt
+
+  - name: Install tmux (for future use)
+    become: true
+    apt:
+      name: tmux
+      state: present
+
+
