@@ -1,0 +1,5 @@
+- name: Backup
+  hosts: example
+  tasks:
+  - name: backuping random.log
+    # do stuff here
