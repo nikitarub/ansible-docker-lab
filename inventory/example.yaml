@@ -4,4 +4,11 @@ example:
       ansible_ssh_private_key_file: ./my_docker_ubuntu_key
       ansible_port: 2022
       ansible_user: sshuser
-
+    # 0.0.0.0:
+    #   ansible_ssh_private_key_file: ./my_docker_ubuntu_key
+    #   ansible_port: 2022
+    #   ansible_user: sshuser
+    # 127.0.0.1:
+    #   ansible_ssh_private_key_file: ./my_docker_ubuntu_key
+    #   ansible_port: 2022
+    #   ansible_user: sshuser

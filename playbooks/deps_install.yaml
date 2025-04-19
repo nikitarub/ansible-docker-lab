@@ -14,12 +14,17 @@
   - name: Install target deps
     local_action:
       module: shell
-      cmd: cd project/automation_qa && pip install -r requirements.txt
+      cmd: cd project/automation_qa_target && pip install -r requirements.txt
 
   - name: Install tmux (for future use)
     become: true
     apt:
       name: tmux
+      state: present
+  - name: Install nano
+    become: true
+    apt:
+      name: nano
       state: present
 
 

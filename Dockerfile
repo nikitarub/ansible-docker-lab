@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM python:3.11
 RUN apt update && apt install  openssh-server sudo -y
 # Create a user “sshuser” and group “sshgroup”
 RUN groupadd sshgroup 
@@ -14,4 +14,5 @@ RUN chown sshuser:sshgroup /home/sshuser/.ssh/authorized_keys && chmod 600 /home
 RUN service ssh start
 # Expose docker port 22
 EXPOSE 22
+COPY automation_qa_target/ /home/sshuser/automation_qa_target_from_build
 CMD ["/usr/sbin/sshd","-D"]
